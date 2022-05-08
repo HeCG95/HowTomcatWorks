@@ -3,3 +3,16 @@ bin/
 # Package Files #
 *.war
 *.ear
+
+ompiled class file
+*.class
+
+# Log file
+*.log
+
+# IntelliJ config file
+.idea/
+.idea/workspace.xml
+*.properties
+#LICENSE
+#README.md
