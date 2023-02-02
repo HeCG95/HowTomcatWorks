@@ -33,6 +33,13 @@ public class Response {
     try {
       File file = new File(HttpServer.WEB_ROOT, request.getUri());
       if (file.exists()) {
+
+        // FIX:ERR_INVALID_HTTP_RESPONSE
+        String header = "HTTP/1.1 200 OK\r\n" +
+                "Content-Type: text/html\r\n" +
+                "\r\n";
+        output.write(header.getBytes());
+
         fis = new FileInputStream(file);
         int ch = fis.read(bytes, 0, BUFFER_SIZE);
         // 静态资源是作为原始数据发送给浏览器
