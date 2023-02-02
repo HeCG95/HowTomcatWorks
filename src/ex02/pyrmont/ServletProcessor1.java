@@ -46,10 +46,12 @@ public class ServletProcessor1 {
 
     Servlet servlet = null;
 
+    // TODO 危害安全性，暴露了内部运作的原理
     try {
       servlet = (Servlet) myClass.newInstance();
       servlet.service((ServletRequest) request, (ServletResponse) response);
     }
+
     catch (Exception e) {
       System.out.println(e.toString());
     }
