@@ -35,15 +35,16 @@ public class Response {
       if (file.exists()) {
         fis = new FileInputStream(file);
         int ch = fis.read(bytes, 0, BUFFER_SIZE);
+        // 静态资源是作为原始数据发送给浏览器
         while (ch!=-1) {
           output.write(bytes, 0, ch);
           ch = fis.read(bytes, 0, BUFFER_SIZE);
         }
-      }
-      else {
+      } else {
         // file not found
         String errorMessage = "HTTP/1.1 404 File Not Found\r\n" +
           "Content-Type: text/html\r\n" +
+//          "Content-Length: 10\r\n" +
           "Content-Length: 23\r\n" +
           "\r\n" +
           "<h1>File Not Found</h1>";

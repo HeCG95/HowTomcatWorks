@@ -18,6 +18,7 @@ public class Request {
     int i;
     byte[] buffer = new byte[2048];
     try {
+      // 读取整个字节流并在一个缓冲区中存储字节数组
       i = input.read(buffer);
     }
     catch (IOException e) {
@@ -27,7 +28,7 @@ public class Request {
     for (int j=0; j<i; j++) {
       request.append((char) buffer[j]);
     }
-    System.out.print(request.toString());
+    System.out.print("request: "+request.toString());
     uri = parseUri(request.toString());
   }
 

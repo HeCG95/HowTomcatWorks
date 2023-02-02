@@ -48,8 +48,8 @@ public class HttpServer {
       OutputStream output = null;
       try {
         socket = serverSocket.accept();
-        input = socket.getInputStream();
-        output = socket.getOutputStream();
+        input = socket.getInputStream();// 输入流 请求信息
+        output = socket.getOutputStream();// 输出流 响应
 
         // create Request object and parse
         Request request = new Request(input);
@@ -64,7 +64,7 @@ public class HttpServer {
         socket.close();
 
         //check if the previous URI is a shutdown command
-        shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
+        shutdown = request.getUri().equalsIgnoreCase(SHUTDOWN_COMMAND);
       }
       catch (Exception e) {
         e.printStackTrace();
