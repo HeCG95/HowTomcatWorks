@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/lib/commons-beanutils.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/commons-collections.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/commons-daemon.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/commons-digester.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/commons-logging.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/commons-modeler.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jaas.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jakarta-regexp-1.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jcert.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jnet.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/jsse.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/mx4j.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/naming-common.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/naming-factory.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/naming-resources.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/servlet.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/tomcat-util.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/xercesImpl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/xmlParserAPIs.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="commons-beanutils.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-collections.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-daemon.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-daemon.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-digester.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-digester.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-logging.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-logging.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-modeler.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-modeler.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jaas.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jaas.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jakarta-regexp-1.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-regexp-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jcert.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jcert.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jnet.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jnet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jsse.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jsse.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mx4j.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/mx4j.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="naming-common.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/naming-common.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="naming-factory.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/naming-factory.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="naming-resources.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/naming-resources.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="servlet.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/servlet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tomcat-util.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/tomcat-util.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xercesImpl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/xercesImpl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xmlParserAPIs.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/xmlParserAPIs.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
