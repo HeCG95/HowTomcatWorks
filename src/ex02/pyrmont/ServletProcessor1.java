@@ -14,9 +14,11 @@ public class ServletProcessor1 {
   public void process(Request request, Response response) {
 
     String uri = request.getUri();
+    System.out.println(">>>>> request.getUri() "+uri);
     String servletName = uri.substring(uri.lastIndexOf("/") + 1);
     URLClassLoader loader = null;
 
+    // 创建一个类加载器并告诉这个类加载器要加载的类的位置
     try {
       // create a URLClassLoader
       URL[] urls = new URL[1];
@@ -24,6 +26,7 @@ public class ServletProcessor1 {
       File classPath = new File(Constants.WEB_ROOT);
       // the forming of repository is taken from the createClassLoader method in
       // org.apache.catalina.startup.ClassLoaderFactory
+      System.out.println(">>>>> classPath.getCanonicalPath() "+classPath.getCanonicalPath());
       String repository = (new URL("file", null, classPath.getCanonicalPath() + File.separator)).toString() ;
       // the code for forming the URL is taken from the addRepository method in
       // org.apache.catalina.loader.StandardClassLoader class.

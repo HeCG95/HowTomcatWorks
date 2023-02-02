@@ -40,6 +40,13 @@ public class Response implements ServletResponse {
            [ message-body ]
          Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
       */
+
+      // FIX:ERR_INVALID_HTTP_RESPONSE
+      String header = "HTTP/1.1 200 OK\r\n" +
+              "Content-Type: text/html\r\n" +
+              "\r\n";
+      output.write(header.getBytes());
+
       int ch = fis.read(bytes, 0, BUFFER_SIZE);
       while (ch!=-1) {
         output.write(bytes, 0, ch);
