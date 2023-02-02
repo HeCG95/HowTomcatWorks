@@ -6,6 +6,7 @@ public class StaticResourceProcessor {
 
   public void process(Request request, Response response) {
     try {
+      System.out.println(">>>>> StaticResourceProcessor ");
       response.sendStaticResource();
     }
     catch (IOException e) {
