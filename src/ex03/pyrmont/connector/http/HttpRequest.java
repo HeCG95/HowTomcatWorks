@@ -141,7 +141,9 @@ public class HttpRequest implements HttpServletRequest {
     ParameterMap results = parameters;
     if (results == null)
       results = new ParameterMap();
-    results.setLocked(false);
+
+    results.setLocked(false);// 开启锁
+
     String encoding = getCharacterEncoding();
     if (encoding == null)
       encoding = "ISO-8859-1";
@@ -166,6 +168,7 @@ public class HttpRequest implements HttpServletRequest {
     else {
       contentType = contentType.trim();
     }
+
     if ("POST".equals(getMethod()) && (getContentLength() > 0)
       && "application/x-www-form-urlencoded".equals(contentType)) {
       try {
@@ -195,7 +198,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
     // Store the final results
-    results.setLocked(true);
+    results.setLocked(true);// 锁住不允许修改
     parsed = true;
     parameters = results;
   }

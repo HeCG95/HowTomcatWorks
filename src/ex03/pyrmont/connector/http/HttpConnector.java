@@ -5,6 +5,10 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 创建一个服务器套接字用来
+ * 等待前来的 HTTP 请求
+ */
 public class HttpConnector implements Runnable {
 
   boolean stopped;
@@ -35,6 +39,7 @@ public class HttpConnector implements Runnable {
       }
       // Hand this socket off to an HttpProcessor
       HttpProcessor processor = new HttpProcessor(this);
+      // 创建请求和响应对象
       processor.process(socket);
     }
   }

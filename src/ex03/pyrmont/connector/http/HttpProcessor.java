@@ -51,6 +51,7 @@ public class HttpProcessor {
 
       response.setHeader("Server", "Pyrmont Servlet Container");
 
+      // 解析 HTTP 请求的第一行和头部，并放到 HttpRequest 对象
       parseRequest(input, output);
       parseHeaders(input);
 
@@ -104,6 +105,7 @@ public class HttpProcessor {
       String name = new String(header.name, 0, header.nameEnd);
       String value = new String(header.value, 0, header.valueEnd);
       request.addHeader(name, value);
+
       // do something for some headers, ignore others.
       if (name.equals("cookie")) {
         Cookie cookies[] = RequestUtil.parseCookieHeader(value);
@@ -141,7 +143,14 @@ public class HttpProcessor {
     throws IOException, ServletException {
 
     // Parse the incoming request line
-    input.readRequestLine(requestLine);
+    System.out.println(">>>>>> requestLine: "+requestLine);
+    input.readRequestLine(requestLine);// HTTP请求第一行,保存下来,因为只能读取一次 不能重复读取
+    System.out.println(">>>>>> requestLine: "+requestLine);
+
+    System.out.println(">>>>>> requestLine: "+requestLine.method+" end - "+requestLine.methodEnd);
+    System.out.println(">>>>>> requestLine: "+requestLine.protocol+" end - "+requestLine.protocolEnd);
+
+    // 获得请求行的方法，URI 和协议
     String method =
       new String(requestLine.method, 0, requestLine.methodEnd);
     String uri = null;
@@ -154,9 +163,11 @@ public class HttpProcessor {
     else if (requestLine.uriEnd < 1) {
       throw new ServletException("Missing HTTP request URI");
     }
+
     // Parse any query parameters out of the request URI
     int question = requestLine.indexOf("?");
     if (question >= 0) {
+      // 查询字符串
       request.setQueryString(new String(requestLine.uri, question + 1,
         requestLine.uriEnd - question - 1));
       uri = new String(requestLine.uri, 0, question);

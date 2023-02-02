@@ -10,6 +10,11 @@ import java.io.PrintWriter;
 
 public class ResponseWriter extends PrintWriter {
 
+  /**
+   * OutputStreamWriter
+   * 充当 ResponseWriter 对象和 ResponseStream 对象之间的桥梁
+   * @param writer
+   */
   public ResponseWriter(OutputStreamWriter writer) {
     super(writer);
   }
