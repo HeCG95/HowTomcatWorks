@@ -297,6 +297,7 @@ final class HttpProcessor
                         +"]等待请求处理-上一个Socket - 准备调用 wait()");
 
                 // 让当前线程等待直到另一个线程为这个对象调用 notify 或者 notifyAll 方法为止
+                // 即 HttpProcessor.assign
                 wait();// 等待处理之前的请求
 
             } catch (InterruptedException e) {
@@ -310,6 +311,7 @@ final class HttpProcessor
         System.out.println("HttpProcessor.assign Main Thread: ["+Thread.currentThread().getName()
                 +"]上一个Socket分配完成 - 准备调用 notifyAll()");
 
+        // 唤醒处理器线程, 已经拿到Socket, 可以继续处理
         notifyAll();
 
         if ((debug >= 1) && (socket != null))
@@ -335,10 +337,17 @@ final class HttpProcessor
                 System.out.println("HttpProcessor.await Thread: "+Thread.currentThread().getName()
                         +" 等待处理-即将到来的新Socket - 准备调用 wait() - " +
                         "等待 HttpConnectot#assign(socket) 发信号 继续处理 ...");
+
+                // 调用 wait 方法让处理器线程暂停，直到连接器线程调用 HttpProcessor 实例的 notifyAll 方法()
                 wait();
             } catch (InterruptedException e) {
             }
         }
+
+        /**
+         * 为什么 await 需要使用一个本地变量(socket)而不是返回实例的 socket 变量呢？
+         * 这样一来，在当前 socket 被完全处理之前，实例的 socket 变量可以赋给下一个前来的 socket
+         */
 
         // Notify the Connector that we have received this Socket
         Socket socket = this.socket;
@@ -346,6 +355,12 @@ final class HttpProcessor
 
         System.out.println("HttpProcessor.await Thread: "+Thread.currentThread().getName()
                 +"拿到了新Socket - 准备调用 notifyAll()");
+
+        /**
+         * 为什么 await 方法需要调用 notifyAll 呢?
+         * 为了防止在 available 为 true 的时候另一个 socket 到来。在这种情况下，
+         * 连接器线程将会在 assign 方法的 while 循环中停止，直到接收到处理器线程的 notifyAll 调用
+         */
         notifyAll();
 
         if ((debug >= 1) && (socket != null))
