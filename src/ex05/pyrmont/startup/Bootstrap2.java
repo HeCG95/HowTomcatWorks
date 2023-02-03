@@ -35,9 +35,11 @@ public final class Bootstrap2 {
     ((Pipeline) context).addValve(valve1);
     ((Pipeline) context).addValve(valve2);
 
+    // Mapper可以用来支持多协议
     Mapper mapper = new SimpleContextMapper();
     mapper.setProtocol("http");
     context.addMapper(mapper);
+
     Loader loader = new SimpleLoader();
     context.setLoader(loader);
     // context.addServletMapping(pattern, name);
