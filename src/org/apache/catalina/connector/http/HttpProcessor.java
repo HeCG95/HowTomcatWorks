@@ -527,6 +527,7 @@ final class HttpProcessor
         if (debug >= 2)
             log("  parseConnection: address=" + socket.getInetAddress() +
                 ", port=" + connector.getPort());
+
         ((HttpRequestImpl) request).setInet(socket.getInetAddress());
         if (proxyPort != 0)
             request.setServerPort(proxyPort);
@@ -551,11 +552,13 @@ final class HttpProcessor
 
         while (true) {
 
+            // 一个 HTTP 请求头部
             HttpHeader header = request.allocateHeader();
 
             // Read the next header
             input.readHeader(header);
-            if (header.nameEnd == 0) {
+
+            if (header.nameEnd == 0) {// 读取完成
                 if (header.valueEnd == 0) {
                     return;
                 } else {
@@ -655,6 +658,8 @@ final class HttpProcessor
                 */
             } else if (header.equals(DefaultHeaders.EXPECT_NAME)) {
                 if (header.valueEquals(DefaultHeaders.EXPECT_100_VALUE))
+                    // 如果在 HTTP 请求里边找到 Expect: 100-continue 的头部信息，
+                    // 则 parseHeaders 方法将把 sendAck 设置为 true
                     sendAck = true;
                 else
                     throw new ServletException
@@ -708,7 +713,7 @@ final class HttpProcessor
         if ( protocol.equals("HTTP/1.1") ) {
             http11 = true;
             sendAck = false;
-        } else {
+        } else {// 非1.1协议, 设置为false
             http11 = false;
             sendAck = false;
             // For HTTP/1.0, connection are not persistent by default,
@@ -911,22 +916,23 @@ final class HttpProcessor
      * @param socket The socket on which we are connected to the client
      */
     private void process(Socket socket) {
-        boolean ok = true;
-        boolean finishResponse = true;
+        boolean ok = true;// 处理过程中是否发现错误
+        boolean finishResponse = true;// 是否应该调用 finishResponse
         SocketInputStream input = null;
         OutputStream output = null;
 
         // Construct and initialize the objects we will need
         try {
             input = new SocketInputStream(socket.getInputStream(),
-                                          connector.getBufferSize());
+                                          connector.getBufferSize());// 传递缓冲区大小
         } catch (Exception e) {
             log("process.create", e);
             ok = false;
         }
 
-        keepAlive = true;
+        keepAlive = true;// 连接是否持久
 
+        // 循环读取
         while (!stopped && ok && keepAlive) {
 
             finishResponse = true;
@@ -945,16 +951,18 @@ final class HttpProcessor
             }
 
 
+            // 解析HTTP请求
             // Parse the incoming request
             try {
                 if (ok) {
 
-                    parseConnection(socket);
-                    parseRequest(input, output);
+                    parseConnection(socket);// 解析连接
+                    parseRequest(input, output);// 解析请求
                     if (!request.getRequest().getProtocol()
                         .startsWith("HTTP/0"))
-                        parseHeaders(input);
-                    if (http11) {
+                        parseHeaders(input);// 解析头部
+
+                    if (http11) {// 请求是否支持 HTTP 1.1
                         // Sending a request acknowledge back to the client if
                         // requested.
                         ackRequest(output);
@@ -1004,6 +1012,7 @@ final class HttpProcessor
                 ((HttpServletResponse) response).setHeader
                     ("Date", FastHttpDateFormat.getCurrentDate());
                 if (ok) {
+                    // 调用容器
                     connector.getContainer().invoke(request, response);
                 }
             } catch (ServletException e) {

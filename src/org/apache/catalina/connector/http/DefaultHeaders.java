@@ -15,6 +15,7 @@ final class DefaultHeaders {
     // -------------------------------------------------------------- Constants
 
 
+    // 使用字符数据用来避免昂贵的字符串操作
     static final char[] AUTHORIZATION_NAME = "authorization".toCharArray();
     static final char[] ACCEPT_LANGUAGE_NAME = "accept-language".toCharArray();
     static final char[] COOKIE_NAME = "cookie".toCharArray();
