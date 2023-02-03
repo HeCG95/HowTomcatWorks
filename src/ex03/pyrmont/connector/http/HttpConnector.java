@@ -37,10 +37,15 @@ public class HttpConnector implements Runnable {
       catch (Exception e) {
         continue;
       }
+
+      /**
+       * 同步，接受新请求之前，需要等待process()运行结束
+       */
       // Hand this socket off to an HttpProcessor
       HttpProcessor processor = new HttpProcessor(this);
       // 创建请求和响应对象
       processor.process(socket);
+
     }
   }
 

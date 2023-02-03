@@ -149,7 +149,7 @@ public final class HttpConnector
      * The set of processors that have been created but are not currently
      * being used to process a request.
      */
-    private Stack processors = new Stack();
+    private Stack processors = new Stack();// HttpProcessor 对象池
 
 
     /**
@@ -791,21 +791,22 @@ public final class HttpConnector
             if (processors.size() > 0) {
                 // if (debug >= 2)
                 // log("createProcessor: Reusing existing processor");
-                return ((HttpProcessor) processors.pop());
+                return ((HttpProcessor) processors.pop());// 出栈
             }
+
             if ((maxProcessors > 0) && (curProcessors < maxProcessors)) {
                 // if (debug >= 2)
                 // log("createProcessor: Creating new processor");
-                return (newProcessor());
+                return (newProcessor());// 没达到最大,继续创建
             } else {
                 if (maxProcessors < 0) {
                     // if (debug >= 2)
                     // log("createProcessor: Creating new processor");
-                    return (newProcessor());
+                    return (newProcessor());// 为负数，没有限制
                 } else {
                     // if (debug >= 2)
                     // log("createProcessor: Cannot create new processor");
-                    return (null);
+                    return (null);// 套接字将会简单关闭并且前来的 HTTP 请求不会被处理
                 }
             }
         }
@@ -1001,6 +1002,7 @@ public final class HttpConnector
 
             // Hand this socket off to an appropriate processor
             HttpProcessor processor = createProcessor();
+            System.out.println("http.HttpConnector#run Main Thread: ["+Thread.currentThread().getName()+"] curProcessors: "+curProcessors);
             if (processor == null) {
                 try {
                     log(sm.getString("httpConnector.noProcessor"));
@@ -1162,7 +1164,7 @@ public final class HttpConnector
             if ((maxProcessors > 0) && (curProcessors >= maxProcessors))
                 break;
             HttpProcessor processor = newProcessor();
-            recycle(processor);
+            recycle(processor);// HttpProcessor入栈 复用
         }
 
     }

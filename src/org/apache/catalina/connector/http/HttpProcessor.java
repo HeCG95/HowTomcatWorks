@@ -287,10 +287,18 @@ final class HttpProcessor
      */
     synchronized void assign(Socket socket) {
 
+        System.out.println("HttpProcessor.assign Main Thread: ["+Thread.currentThread().getName()+"] available: "+available);
+
         // Wait for the Processor to get the previous Socket
         while (available) {
             try {
-                wait();
+
+                System.out.println("HttpProcessor.assign Main Thread: ["+Thread.currentThread().getName()
+                        +"]等待请求处理-上一个Socket - 准备调用 wait()");
+
+                // 让当前线程等待直到另一个线程为这个对象调用 notify 或者 notifyAll 方法为止
+                wait();// 等待处理之前的请求
+
             } catch (InterruptedException e) {
             }
         }
@@ -298,6 +306,10 @@ final class HttpProcessor
         // Store the newly available Socket and notify our thread
         this.socket = socket;
         available = true;
+
+        System.out.println("HttpProcessor.assign Main Thread: ["+Thread.currentThread().getName()
+                +"]上一个Socket分配完成 - 准备调用 notifyAll()");
+
         notifyAll();
 
         if ((debug >= 1) && (socket != null))
@@ -315,9 +327,14 @@ final class HttpProcessor
      */
     private synchronized Socket await() {
 
+        System.out.println("HttpProcessor.await Thread: "+Thread.currentThread().getName()+" available: "+available);
+
         // Wait for the Connector to provide a new Socket
-        while (!available) {
+        while (!available) {// 可以进行新的请求
             try {
+                System.out.println("HttpProcessor.await Thread: "+Thread.currentThread().getName()
+                        +" 等待处理-即将到来的新Socket - 准备调用 wait() - " +
+                        "等待 HttpConnectot#assign(socket) 发信号 继续处理 ...");
                 wait();
             } catch (InterruptedException e) {
             }
@@ -326,6 +343,9 @@ final class HttpProcessor
         // Notify the Connector that we have received this Socket
         Socket socket = this.socket;
         available = false;
+
+        System.out.println("HttpProcessor.await Thread: "+Thread.currentThread().getName()
+                +"拿到了新Socket - 准备调用 notifyAll()");
         notifyAll();
 
         if ((debug >= 1) && (socket != null))
@@ -1070,13 +1090,14 @@ final class HttpProcessor
      * The background thread that listens for incoming TCP/IP connections and
      * hands them off to an appropriate processor.
      */
-    public void run() {
+    public void run() {// 实现了Runnable,实例运行在自身线程上
 
         // Process requests until we receive a shutdown signal
         while (!stopped) {
 
             // Wait for the next socket to be assigned
-            Socket socket = await();
+            // 等待直到 HttpConnector 调用 HttpProcessor 实例的 assign 方法
+            Socket socket = await();// 呼应 HttpProcessor.assign - notifyAll
             if (socket == null)
                 continue;
 
@@ -1086,6 +1107,8 @@ final class HttpProcessor
             } catch (Throwable t) {
                 log("process.invoke", t);
             }
+
+            System.out.println("HttpProcessor.run Thread: "+Thread.currentThread().getName()+" available: "+available+" 处理完成,循环回收Processor");
 
             // Finish up this request
             connector.recycle(this);
