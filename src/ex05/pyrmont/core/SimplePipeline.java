@@ -52,6 +52,14 @@ public class SimplePipeline implements Pipeline {
     return valves;
   }
 
+  /**
+   * 调用管道的阀门
+   * @param request The servlet request we are processing
+   * @param response The servlet response we are creating
+   *
+   * @throws IOException
+   * @throws ServletException
+   */
   public void invoke(Request request, Response response)
     throws IOException, ServletException {
     // Invoke the first Valve in this pipeline for this request
@@ -77,10 +85,28 @@ public class SimplePipeline implements Pipeline {
       stage = stage + 1;
       // Invoke the requested Valve for the current request thread
       if (subscript < valves.length) {
+        System.out.println();
+        System.out.println("-----------------------------------------------------------");
+        System.out.println(Thread.currentThread().getName()+" >>> subscript: "+subscript +" stage: "+stage);
+        System.out.println(Thread.currentThread().getName()+" >>> valves[subscript] - "+valves[subscript].getClass().getName()+" <<< Prepare invoke");
+
         valves[subscript].invoke(request, response, this);
+
+        System.out.println(Thread.currentThread().getName()+" >>> valves[subscript] - "+valves[subscript].getClass().getName()+" <<< Finish invoke");
+        System.out.println("-----------------------------------------------------------");
+        System.out.println();
       }
       else if ((subscript == valves.length) && (basic != null)) {
+        System.out.println();
+        System.out.println("-----------------------------------------------------------");
+        System.out.println(Thread.currentThread().getName()+" >>> subscript: "+subscript +" stage: "+stage);
+        System.out.println(Thread.currentThread().getName()+" >>> basic - "+basic.getClass().getName()+" <<< Prepare invoke");
+
         basic.invoke(request, response, this);
+
+        System.out.println(Thread.currentThread().getName()+" >>> basic - "+basic.getClass().getName()+" <<< Finish invoke");
+        System.out.println("-----------------------------------------------------------");
+        System.out.println();
       }
       else {
         throw new ServletException("No valve");

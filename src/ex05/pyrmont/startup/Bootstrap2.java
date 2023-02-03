@@ -25,6 +25,7 @@ public final class Bootstrap2 {
     wrapper2.setServletClass("ModernServlet");
 
     Context context = new SimpleContext();
+    // 将一个容器添加到另一个容器中
     context.addChild(wrapper1);
     context.addChild(wrapper2);
 

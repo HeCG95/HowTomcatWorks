@@ -13,6 +13,10 @@ import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
 
 
+/**
+ * 打印
+ * 请求头部到控制台上
+ */
 public class HeaderLoggerValve implements Valve, Contained {
 
   protected Container container;
@@ -20,8 +24,13 @@ public class HeaderLoggerValve implements Valve, Contained {
   public void invoke(Request request, Response response, ValveContext valveContext)
     throws IOException, ServletException {
 
+    System.out.println();
+    System.out.println(Thread.currentThread().getName()+" >>> HeaderLoggerValve - before call invokeNext");
+
     // Pass this request on to the next valve in our pipeline
     valveContext.invokeNext(request, response);
+
+    System.out.println(Thread.currentThread().getName()+" >>> HeaderLoggerValve - after call invokeNext");
 
     System.out.println("Header Logger Valve");
     ServletRequest sreq = request.getRequest();
@@ -39,6 +48,8 @@ public class HeaderLoggerValve implements Valve, Contained {
       System.out.println("Not an HTTP Request");
 
     System.out.println("------------------------------------");
+    System.out.println("HeaderLoggerValve return");
+    System.out.println();
   }
 
   public String getInfo() {

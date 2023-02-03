@@ -632,6 +632,12 @@ public class StandardPipeline
         public void invokeNext(Request request, Response response)
             throws IOException, ServletException {
 
+            /**
+             * subscript-下标 stage-级别
+             * 0                1
+             * 1                2
+             */
+
             int subscript = stage;
             stage = stage + 1;
 

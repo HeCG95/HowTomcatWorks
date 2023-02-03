@@ -11,6 +11,9 @@ import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
 
 
+/**
+ * 打印出客户端的 IP 地址到控制台
+ */
 public class ClientIPLoggerValve implements Valve, Contained {
 
   protected Container container;
@@ -18,12 +21,20 @@ public class ClientIPLoggerValve implements Valve, Contained {
   public void invoke(Request request, Response response, ValveContext valveContext)
     throws IOException, ServletException {
 
+    System.out.println();
+    System.out.println(Thread.currentThread().getName()+" >>> ClientIPLoggerValve - before call invokeNext");
+
     // Pass this request on to the next valve in our pipeline
     valveContext.invokeNext(request, response);
+
+    System.out.println(Thread.currentThread().getName()+" >>> ClientIPLoggerValve - after call invokeNext");
+
     System.out.println("Client IP Logger Valve");
     ServletRequest sreq = request.getRequest();
     System.out.println(sreq.getRemoteAddr());
     System.out.println("------------------------------------");
+    System.out.println("ClientIPLoggerValve return");
+    System.out.println();
   }
 
   public String getInfo() {

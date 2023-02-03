@@ -22,6 +22,10 @@ public class SimpleWrapperValve implements Valve, Contained {
   public void invoke(Request request, Response response, ValveContext valveContext)
     throws IOException, ServletException {
 
+    System.out.println("Basic SimpleWrapperValve start ...");
+
+    // 基本阀门, 不需要调用 invokeNext
+
     SimpleWrapper wrapper = (SimpleWrapper) getContainer();
     ServletRequest sreq = request.getRequest();
     ServletResponse sres = response.getResponse();
@@ -35,7 +39,7 @@ public class SimpleWrapperValve implements Valve, Contained {
 
     // Allocate a servlet instance to process this request
     try {
-      servlet = wrapper.allocate();
+      servlet = wrapper.allocate();// 获取Servlet实例
       if (hres!=null && hreq!=null) {
         servlet.service(hreq, hres);
       }
@@ -45,6 +49,9 @@ public class SimpleWrapperValve implements Valve, Contained {
     }
     catch (ServletException e) {
     }
+
+    System.out.println("Basic SimpleWrapperValve return ...");
+
   }
 
   public String getInfo() {
