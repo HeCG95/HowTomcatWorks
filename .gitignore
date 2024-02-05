@@ -11,8 +11,8 @@ ompiled class file
 *.log
 
 # IntelliJ config file
-.idea/
-.idea/workspace.xml
+#.idea/
+#.idea/workspace.xml
 *.properties
 #LICENSE
 #README.md
